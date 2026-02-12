@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una carta para ti 💌</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    background: linear-gradient(135deg,#bbdefb,#e3f2fd);
+    font-family: "Times New Roman", serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+}
+
+.carta{
+    background:#fff8e1;
+    width:90%;
+    max-width:400px;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    text-align:center;
+    position:relative;
+}
+
+h1{
+    font-style:italic;
+    color:#1565c0;
+}
+
+p{
+    color:#37474f;
+    font-size:16px;
+}
+
+button{
+    margin:10px;
+    padding:10px 18px;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.si{
+    background:#42a5f5;
+    color:white;
+}
+
+.no{
+    background:#ef5350;
+    color:white;
+    position:absolute;
+}
+
+.rosa{
+    position:absolute;
+    font-size:24px;
+    animation: flotar 5s linear infinite;
+}
+
+@keyframes flotar{
+    0%{transform:translateY(0) rotate(0deg); opacity:1;}
+    100%{transform:translateY(-900px) rotate(360deg); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="carta" id="carta">
+    <h1>Para alguien muy especial 💙</h1>
+
+    <p>
+        Hay personas que llegan sin avisar<br>
+        y se convierten en lo más bonito<br>
+        que te pudo pasar.<br><br>
+
+        Hoy quiero preguntarte algo...
+    </p>
+
+    <img src="pregunta.gif" width="200" style="margin:15px 0; border-radius:10px;">
+
+    <h2 style="color:#0d47a1;">¿Quieres ser mi San Valentín? 💙</h2>
+
+    <button class="si" onclick="aceptar()">Sí, acepto 💙</button>
+    <button class="no" id="btnNo">No 😢</button>
+</div>
+
+<audio id="musica" loop>
+    <source src="The Piano Duet.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const btnNo = document.getElementById("btnNo");
+const carta = document.getElementById("carta");
+const musica = document.getElementById("musica");
+
+// BOTÓN NO QUE HUYE
+btnNo.addEventListener("mouseover", () => {
+    const x = Math.random() * (carta.clientWidth - 100);
+    const y = Math.random() * (carta.clientHeight - 50);
+    btnNo.style.left = x + "px";
+    btnNo.style.top = y + "px";
+});
+
+// CUANDO DICE QUE SÍ
+function aceptar(){
+    carta.innerHTML = `
+        <h1>Sabía que dirías que sí 💙</h1>
+
+        <img src="si.gif" width="200" style="margin:15px 0; border-radius:10px;">
+
+        <p>
+        Desde el primer momento supe que eras especial.<br>
+        Gracias por aceptar 💙<br><br>
+        Prometo hacerte sonreír siempre.
+        </p>
+
+        <h2 style="color:#1565c0;">Te Amo 💙</h2>
+    `;
+
+    musica.play();
+    lanzarRosas();
+}
+
+// ROSAS AZULES FLOTANDO
+function lanzarRosas(){
+    setInterval(()=>{
+        const rosa = document.createElement("div");
+        rosa.classList.add("rosa");
+        rosa.innerHTML="🌹";
+        rosa.style.left=Math.random()*window.innerWidth+"px";
+        rosa.style.bottom="0px";
+        rosa.style.filter="hue-rotate(200deg)"; // hace la rosa azul
+        document.body.appendChild(rosa);
+
+        setTimeout(()=>{rosa.remove()},5000);
+    },400);
+}
+</script>
+
+</body>
+</html>
+
